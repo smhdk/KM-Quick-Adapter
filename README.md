@@ -10,6 +10,7 @@ You can take a look [here](https://developer.android.com/topic/libraries/archite
 # Usage
 
 Create RecyclerviewAdapter or PagedlistAdapter with KmBuilder
+
 RecyclerView Adapter: 
 ```kotlin
      val adapter = KmBuilder.getRvAdapter()
@@ -95,7 +96,7 @@ Implement createBinding method. Create ViewDataBinding object for each view type
 		  return binding
 	  }
 ```
-###How is implement DiffUtil.ItemCallback for PagedlistAdapter
+### How is implement DiffUtil.ItemCallback for PagedlistAdapter
 ```kotlin
       val itemCallback = object : DiffUtil.ItemCallback<Any>() {  
 		  override fun areItemsTheSame(oldItem: Any, newItem: Any) =  
@@ -107,7 +108,7 @@ Implement createBinding method. Create ViewDataBinding object for each view type
 ```
 .setDiffCallback method must return DiffUtil.ItemCallback from for PagedlistAdapter,must not be null.
 
-###How is implement DiffUtil.DiffCallback for RecyclerViewAdapter
+### How is implement DiffUtil.DiffCallback for RecyclerViewAdapter
 ```kotlin
       fun diffCallback(newList: List<Any>, oldList: List<Any>) = object : DiffUtil.Callback(){  
 		  override fun areItemsTheSame(p0: Int, p1: Int) = newList[p0] == oldList[p0]  
