@@ -4,7 +4,7 @@ KM Quick Adapter with Databinding
 =============
 [![Release](https://jitpack.io/v/smhdk/KM-Quick-Adapter.svg)](https://jitpack.io/#smhdk/KM-Quick-Adapter "![Release](https://jitpack.io/v/smhdk/KM-Quick-Adapter.svg)")
 
-You can easyly crate RecyclerviewAdapter and PagedlistAdapter using databinding with this library.
+You can easily crate RecyclerviewAdapter and PagedlistAdapter using databinding with this library.
 
 You can take a look [here](https://developer.android.com/topic/libraries/architecture/paging/) for Android PagingLibrary. Pagedlist and PagedlistAdapter are components of PagingLibrary.
 
