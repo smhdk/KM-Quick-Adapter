@@ -1,8 +1,11 @@
+
 KM Quick Adapter with Databinding
 =============
 [![Release](https://jitpack.io/v/smhdk/KM-Popup-Image-Slider.svg)](https://jitpack.io/#smhdk/KM-Popup-Image-Slider "![Release](https://jitpack.io/v/smhdk/KM-Popup-Image-Slider.svg)")
 
 You can easyly crate RecyclerviewAdapter and PagedlistAdapter using databinding with this library.
+
+You can take a look [here](https://developer.android.com/topic/libraries/architecture/paging/) for Android PagingLibrary. Pagedlist and PagedlistAdapter are components of PagingLibrary.
 
 # Usage
 
@@ -13,12 +16,12 @@ RecyclerView Adapter:
             .createBinding { parent, viewType ->
                 //Create ViewDataBinding variable for your layout and return it
                 val mBinding: ItemAdapterBinding = inflate(
-                    LayoutInflater.from(this@SimpleAdapterSampleActivity),
+                    LayoutInflater.from(context),
                     R.layout.item_adapter,
                     parent,
                     false
                 )
-                mBinding.viewModel = ItemViewModel(this@SimpleAdapterSampleActivity.application)
+                mBinding.viewModel = ItemViewModel(aplicationContext)
                 mBinding.viewModel?.initListener(this)
                 mBinding
             }
@@ -38,12 +41,12 @@ PagedlistAdapter:
        val adapter = KmBuilder.getPagedListAdapter()
             .createBinding { parent, viewType ->
                 val mBinding: ItemAdapterBinding = DataBindingUtil.inflate(
-                    LayoutInflater.from(this@PagedlistAdapterSampleActivity),
+                    LayoutInflater.from(context),
                     R.layout.item_adapter,
                     parent,
                     false
                 )
-                mBinding.viewModel = ItemViewModel(this@PagedlistAdapterSampleActivity.application)
+                mBinding.viewModel = ItemViewModel(applicationContext)
                 mBinding.viewModel?.initListener(this)
                 mBinding
             }
@@ -71,6 +74,53 @@ And the set list to adapter:
       (recyclerView.adapter as KmRvAdapter).setList(list)
 
 ```
+### How is works with multi view type?
+Implement createBinding method. Create ViewDataBinding object for each view type and return it.
+```kotlin
+      .createBinding { parent, viewType ->  
+		  lateinit var binding: ViewDataBinding  
+		  when (viewType) {  
+			  0 -> {  
+				  binding = inflate(  
+					  LayoutInflater.from(this@SimpleAdapterSampleActivity),  
+		              R.layout.item_adapter,  
+		              parent,  
+		              false)}  
+		      1 -> {  
+				  binding = inflate(  
+					  LayoutInflater.from(this@SimpleAdapterSampleActivity),  
+		              R.layout.item_adapter,  
+		              parent,  
+		              false)}
+		  return binding
+	  }
+```
+###How is implement DiffUtil.ItemCallback for PagedlistAdapter
+```kotlin
+      val itemCallback = object : DiffUtil.ItemCallback<Any>() {  
+		  override fun areItemsTheSame(oldItem: Any, newItem: Any) =  
+		        oldItem == newItem  
+  
+		  override fun areContentsTheSame(oldItem: Any, newItem: Any) =  
+		        oldItem == newItem  
+	  }
+```
+.setDiffCallback method must return DiffUtil.ItemCallback from for PagedlistAdapter,must not be null.
+
+###How is implement DiffUtil.DiffCallback for RecyclerViewAdapter
+```kotlin
+      fun diffCallback(newList: List<Any>, oldList: List<Any>) = object : DiffUtil.Callback(){  
+		  override fun areItemsTheSame(p0: Int, p1: Int) = newList[p0] == oldList[p0]  
+  
+		  override fun getOldListSize() = oldList.size  
+  
+		  override fun getNewListSize() = newList.size  
+  
+		  override fun areContentsTheSame(p0: Int, p1: Int) = newList[p0] == oldList[p0]  
+}
+```
+.setDiffCallback method must return DiffUtil.Callback from for RecyclerViewAdapter. If you don't implement this method,default DiffUtilCallback works like example.
+
 
 
 # Download
