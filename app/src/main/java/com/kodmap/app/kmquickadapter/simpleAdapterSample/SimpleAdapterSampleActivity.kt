@@ -12,9 +12,9 @@ import com.kodmap.app.kmquickadapter.databinding.ActivitySimpleListBinding
 import com.kodmap.app.kmquickadapter.databinding.ItemAdapterBinding
 import com.kodmap.app.kmquickadapter.model.ItemViewModel
 import com.kodmap.app.kmquickadapter.model.TestModel
+import com.kodmap.app.library.KmBuilder
 import com.kodmap.app.library.adapter.KmDiffCallback
 import com.kodmap.app.library.adapter.rvAdapter.KmRvAdapter
-import com.kodmap.app.library.KmBuilder
 import com.kodmap.app.library.listener.AdapterCallback
 
 class SimpleAdapterSampleActivity() : AppCompatActivity(), AdapterCallback {
@@ -40,6 +40,7 @@ class SimpleAdapterSampleActivity() : AppCompatActivity(), AdapterCallback {
     private fun initAdapter() {
         kmAdapter = KmBuilder.getRvAdapter()
             .createBinding { parent, viewType ->
+                //Create ViewDataBinding variable for your layout and return it
                 val mBinding: ItemAdapterBinding = inflate(
                     LayoutInflater.from(this@SimpleAdapterSampleActivity),
                     R.layout.item_adapter,
@@ -51,11 +52,13 @@ class SimpleAdapterSampleActivity() : AppCompatActivity(), AdapterCallback {
                 mBinding
             }
             .bindItem { binding, model ->
+                //Set item to your item layout view model
                 (binding as ItemAdapterBinding).viewModel?.setModel(model as TestModel)
-                binding.executePendingBindings()
             }
-            .setDiffCallback { newList, oldList -> KmDiffCallback(newList, oldList) }
-            .getItemId { model -> (model as TestModel).name.hashCode().toLong() }
+            .setDiffCallback { newList, oldList ->
+                //You can set DiffUtil.Callback to adapter
+                KmDiffCallback(newList, oldList)
+            }
             .build()
         mBinding.rvSimpleList.adapter = kmAdapter
     }

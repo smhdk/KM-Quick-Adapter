@@ -91,7 +91,7 @@ class KmPagedlistAdapter(
         mUnregisterAdapterDataObserver?.invoke(observer) ?: super.unregisterAdapterDataObserver(observer)
 
     companion object {
-        open class KmDiffItemCallback : DiffUtil.ItemCallback<Any>() {
+        val itemCallback = object : DiffUtil.ItemCallback<Any>() {
             override fun areItemsTheSame(oldItem: Any, newItem: Any) =
                 oldItem == newItem
 

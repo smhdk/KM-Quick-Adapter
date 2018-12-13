@@ -13,8 +13,9 @@ import com.kodmap.app.kmquickadapter.databinding.ActivityPagedlistSampleBinding
 import com.kodmap.app.kmquickadapter.databinding.ItemAdapterBinding
 import com.kodmap.app.kmquickadapter.model.ItemViewModel
 import com.kodmap.app.kmquickadapter.model.TestModel
-import com.kodmap.app.library.adapter.pagedlistAdapter.KmPagedlistAdapter
 import com.kodmap.app.library.KmBuilder
+import com.kodmap.app.library.adapter.pagedlistAdapter.KmPagedlistAdapter
+import com.kodmap.app.library.adapter.pagedlistAdapter.KmPagedlistAdapter.Companion.itemCallback
 import com.kodmap.app.library.listener.AdapterCallback
 
 class PagedlistAdapterSampleActivity() : AppCompatActivity(), AdapterCallback {
@@ -55,7 +56,10 @@ class PagedlistAdapterSampleActivity() : AppCompatActivity(), AdapterCallback {
             .bindItem { binding, model ->
                 (binding as ItemAdapterBinding).viewModel?.setModel(model as TestModel)
             }
-            .setDiffCallback { KmPagedlistAdapter.Companion.KmDiffItemCallback() }
+            .setDiffCallback {
+                //You must return DiffUtil.ItemCallback
+                itemCallback
+            }
             .build()
         mBinding.rvPagedlist.adapter = kmPagedListAdapter
     }
