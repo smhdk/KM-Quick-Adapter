@@ -1,15 +1,25 @@
 
+
 KM Quick Adapter with Databinding
 =============
-[![Release](https://jitpack.io/v/smhdk/KM-Popup-Image-Slider.svg)](https://jitpack.io/#smhdk/KM-Popup-Image-Slider "![Release](https://jitpack.io/v/smhdk/KM-Popup-Image-Slider.svg)")
+[![Release](https://jitpack.io/v/smhdk/KM-Quick-Adapter.svg)](https://jitpack.io/#smhdk/KM-Quick-Adapter "![Release](https://jitpack.io/v/smhdk/KM-Quick-Adapter.svg)")
 
 You can easyly crate RecyclerviewAdapter and PagedlistAdapter using databinding with this library.
 
 You can take a look [here](https://developer.android.com/topic/libraries/architecture/paging/) for Android PagingLibrary. Pagedlist and PagedlistAdapter are components of PagingLibrary.
 
 # Usage
+Enable dataBinding in app build.gradle. Add the following code for it in android scope.
 
 Create RecyclerviewAdapter or PagedlistAdapter with KmBuilder
+```dsl
+     android {  
+	  ...
+	  dataBinding {  
+		  enabled true  
+	  }  
+     }
+```
 
 RecyclerView Adapter: 
 ```kotlin
@@ -56,7 +66,7 @@ PagedlistAdapter:
             }
             .setDiffCallback { 
                 //You must return DiffUtil.ItemCallback
-                KmPagedlistAdapter.Companion.KmDiffItemCallback() 
+                diffCallback
             }
             .build()
 ```
@@ -83,13 +93,13 @@ Implement createBinding method. Create ViewDataBinding object for each view type
 		  when (viewType) {  
 			  0 -> {  
 				  binding = inflate(  
-					  LayoutInflater.from(this@SimpleAdapterSampleActivity),  
+					  LayoutInflater.from(context),  
 		              R.layout.item_adapter,  
 		              parent,  
 		              false)}  
 		      1 -> {  
 				  binding = inflate(  
-					  LayoutInflater.from(this@SimpleAdapterSampleActivity),  
+					  LayoutInflater.from(context),  
 		              R.layout.item_adapter,  
 		              parent,  
 		              false)}
