@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">KmQuickAdapter</string>
+    <string name="rv_adapter_sample">RecyclerviewAdapter Sample</string>
+    <string name="pagedlist_adapter_sample">PagedlistAdapter Sample</string>
+</resources>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+>
+
+    <data>
+        <variable
+                name="viewModel"
+                type="com.kodmap.app.kmquickadapter.main.MainActivityViewModel"/>
+    </data>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            tools:context=".main.MainActivity">
+        <TextView
+                android:id="@+id/tv_rv_sample"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:padding="16dp"
+                android:text="@string/rv_adapter_sample"
+                android:background="@android:color/holo_blue_light"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                android:textAlignment="center"
+                android:onClick="@{() -> viewModel.rvAdapterSampleClick()}"/>
+
+        <TextView
+                android:id="@+id/tv_paged_sample"
+                android:layout_below="@+id/tv_rv_sample"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:padding="16dp"
+                android:text="@string/pagedlist_adapter_sample"
+                android:background="@android:color/holo_blue_dark"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                android:textAlignment="center"
+                android:onClick="@{() -> viewModel.pagedlistAdapterSampleClick()}"/>
+    </RelativeLayout>
+</layout>
